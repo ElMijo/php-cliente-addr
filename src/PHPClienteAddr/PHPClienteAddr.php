@@ -44,5 +44,5 @@ class PHPClienteAddr
         }
     }
 }
-ClienteAddr::init();
+PHPClienteAddr::init();
 ?>
