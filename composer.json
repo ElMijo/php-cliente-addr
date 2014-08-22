@@ -1,11 +1,16 @@
 {
     "name": "elmijo/php-cliente-addr",
     "description": "Una pequeña clase para obtener la IP y el HostName del cliente",
+    "keywords": ["ip", "hostname","addr","cliente","HTTP_CLIENT_IP","HTTP_X_FORWARDED_FOR","HTTP_X_FORWARDED","HTTP_X_CLUSTER_CLIENT_IP","HTTP_FORWARDED_FOR","HTTP_FORWARDED","REMOTE_ADDR"],
+    "homepage": "https://github.com/ElMijo/php-cliente-addr",
+    "version": "1.1",
     "license": "MIT",
     "authors": [
         {
             "name": "Jerry Anselmi",
-            "email": "jerry.anselmi@gmail.com"
+            "email": "jerry.anselimi@gmail.com",
+            "homepage": "http://elmijo.net.ve",
+            "role": "Developer"
         }
     ],
     "minimum-stability": "stable",

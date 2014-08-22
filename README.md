@@ -8,11 +8,11 @@ Una pequeña clase para obtener la IP y el HostName del cliente
 
 Instalación
 -----------
-
+Lo podemos hacer a travéz de [composer](https://getcomposer.org/doc/00-intro.md):
 ```json
     "require": {
         ...
-        "elmijo/php-cliente-addr": "1.0"
+        "elmijo/php-cliente-addr": "1.1"
         ...
     }
 ```
@@ -33,3 +33,4 @@ use ClienteAddr\ClienteAddr;
 ```php
 echo ClienteAddr::$IP;
 echo ClienteAddr::$HOSTNAME;
+```
