@@ -82,7 +82,7 @@ class PHPClientAddr
     {
         if(!!$this->is_http_x_forwarded_for())
         {
-            $entries = get_http_x_forwarded_for_entities($this->server);
+            $entries = $this->get_http_x_forwarded_for_entities();
 
             $this->ip = $this->get_x_forwarded_ip($entries);          
         }
