@@ -1,5 +1,5 @@
-php-cliente-addr
-================
+PHP Cliente Address
+===================
 
 Una pequeña clase para obtener la IP y el HostName del cliente
 
@@ -12,7 +12,7 @@ Lo podemos hacer a travéz de [composer](https://getcomposer.org/doc/00-intro.md
 ```json
     "require": {
         ...
-        "elmijo/php-cliente-addr": "1.1"
+        "elmijo/php-cliente-addr": "2.0"
         ...
     }
 ```
@@ -25,12 +25,12 @@ Datemos un pequeño ejemplo del uso de esta clase:
 #### 1.- Incluir la libreria
 
 ```php
-use ClienteAddr\ClienteAddr;
+use PHPTools\PHPClientAddr\PHPClientAddr;
 ```
 
 #### 2.- Obtener los valores
 
 ```php
-echo ClienteAddr::$IP;
-echo ClienteAddr::$HOSTNAME;
+echo PHPClientAddr::$IP;
+echo PHPClientAddr::$HOSTNAME;
 ```

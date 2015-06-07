@@ -1,22 +1,22 @@
 <?php
-namespace PHPClienteAddr;
+namespace PHPTools\PHPClientAddr;
 
 /**
  * Clas eque permite obtener la Ip y HostName del cliente
  */
-class PHPClienteAddr
+class PHPClientAddr
 {
     /**
      * Lista de posinles variables que contienen la IP del cliente
      * @var array
      */
-    private static $list    = array('HTTP_CLIENT_IP','HTTP_X_FORWARDED_FOR','HTTP_X_FORWARDED','HTTP_X_CLUSTER_CLIENT_IP','HTTP_FORWARDED_FOR','HTTP_FORWARDED','REMOTE_ADDR');
+    private static $list = array('HTTP_CLIENT_IP','HTTP_X_FORWARDED_FOR','HTTP_X_FORWARDED','HTTP_X_CLUSTER_CLIENT_IP','HTTP_FORWARDED_FOR','HTTP_FORWARDED','REMOTE_ADDR');
 
     /**
      * Ip del cliente
      * @var string
      */
-    public static $IP       = NULL;
+    public static $IP = NULL;
 
     /**
      * Hostname del Cliente
@@ -44,5 +44,4 @@ class PHPClienteAddr
         }
     }
 }
-PHPClienteAddr::init();
-?>
+PHPClientAddr::init();

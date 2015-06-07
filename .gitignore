@@ -1,5 +1,2 @@
-/vendor/
-/test/
-.tags
-.tags_sorted_by_file
-composer.lock
+vendor/
+build/
