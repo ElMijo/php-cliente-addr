@@ -7,11 +7,9 @@ namespace PHPTools\PHPClientAddr;
 class PHPClientAddr
 {
     /**
-     * Lista de posinles variables que contienen la IP del cliente
+     * Arreglod e expreciones regulres para validar una IP privada.
      * @var array
      */
-    private $list = array('HTTP_CLIENT_IP','HTTP_X_FORWARDED_FOR','HTTP_X_FORWARDED','HTTP_X_CLUSTER_CLIENT_IP','HTTP_FORWARDED_FOR','HTTP_FORWARDED','REMOTE_ADDR');
-
     private $private_ip = array(
         '/^0\./','/^127\.0\.0\.1/',
         '/^192\.168\..*/','/^172\.((1[6-9])|(2[0-9])|(3[0-1]))\..*/',
@@ -82,7 +80,7 @@ class PHPClientAddr
      */
     private function get_ip_forwarded()
     {
-        if(!!$this->is_http_x_forwarded_for($this->server))
+        if(!!$this->is_http_x_forwarded_for())
         {
             $entries = get_http_x_forwarded_for_entities($this->server);
 
@@ -105,7 +103,7 @@ class PHPClientAddr
      */
     private function get_http_x_forwarded_for_entities()
     {
-        $entries = split('[, ]', $this->server['HTTP_X_FORWARDED_FOR']);
+        $entries = preg_split('[, ]', $this->server['HTTP_X_FORWARDED_FOR']);
         reset($entries);
         return $entries;
     }
