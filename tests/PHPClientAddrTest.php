@@ -4,7 +4,7 @@ class PHPClientAddrTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        $this->cliaddr = new PHPTools\PHPClientAddr\PHPClientAddr($_SERVER,$_ENV);
+        $this->cliaddr = new PHPTools\PHPClientAddr\PHPClientAddr();
 
         $this->assertInstanceOf('PHPTools\PHPClientAddr\PHPClientAddr', $this->cliaddr);
     }

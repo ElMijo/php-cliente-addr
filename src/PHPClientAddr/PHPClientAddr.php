@@ -40,16 +40,11 @@ class PHPClientAddr
      */
     private $env;
 
-    /**
-     * Constructor
-     * @param array $server Arreglo de valores correspondientes a la variable $_SERVER
-     * @param array $env    Arreglo de valores correspondientes a la variable $_ENV
-     */
-    public function __construct($server = array(), $env = array())
+    public function __construct()
     {
-        $this->server = $server;
+        $this->server = $_SERVER;
 
-        $this->env = $env;
+        $this->env = $_ENV;
 
         $this->ip = $this->get_remode_addr();
 

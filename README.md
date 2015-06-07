@@ -33,6 +33,7 @@ use PHPTools\PHPClientAddr\PHPClientAddr;
 #### 2.- Obtener los valores
 
 ```php
-echo PHPClientAddr::$IP;
-echo PHPClientAddr::$HOSTNAME;
+$address = new PHPClientAddr();
+echo $address->ip;
+echo $address->hostname;
 ```
