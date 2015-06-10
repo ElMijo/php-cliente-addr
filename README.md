@@ -22,7 +22,7 @@ Lo podemos hacer a travéz de [composer](https://getcomposer.org/doc/00-intro.md
 Ejemplo
 -------
 
-Datemos un pequeño ejemplo del uso de esta clase:
+Asi debemos usar la clase:
 
 #### 1.- Incluir la libreria
 
