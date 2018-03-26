@@ -1,6 +1,8 @@
 <?php
 
-class PHPClientAddrTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PHPClientAddrTest extends TestCase
 {
     protected function setUp()
     {
@@ -14,6 +16,6 @@ class PHPClientAddrTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $this->cliaddr->ip);
         $this->assertInternalType('string', $this->cliaddr->hostname);
         $this->assertTrue(!!filter_var($this->cliaddr->ip, FILTER_VALIDATE_IP));
-        
+
     }
 }

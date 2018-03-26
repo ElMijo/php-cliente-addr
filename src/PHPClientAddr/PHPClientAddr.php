@@ -10,7 +10,7 @@ class PHPClientAddr
      * Arreglod e expreciones regulres para validar una IP privada.
      * @var array
      */
-    private $private_ip = array(
+    private $privateIp = array(
         '/^0\./','/^127\.0\.0\.1/',
         '/^192\.168\..*/','/^172\.((1[6-9])|(2[0-9])|(3[0-1]))\..*/',
         '/^10\..*/'
@@ -40,32 +40,29 @@ class PHPClientAddr
      */
     private $env;
 
+    /**
+     * Thr constructor.
+     */
     public function __construct()
     {
         $this->server = $_SERVER;
-
         $this->env = $_ENV;
-
-        $this->ip = $this->get_remode_addr();
-
-        $this->get_ip_forwarded();
-
-        $this->hostname = $this->get_remote_hostname();
+        $this->ip = $this->getRemodeAddr();
+        $this->getIpForwarded();
+        $this->hostname = $this->getRemoteHostname();
     }
 
     /**
      * Permite obtener el hostname de la IP
      * @return string
      */
-    private function get_remote_hostname()
+    private function getRemoteHostname()
     {
         $hostname = NULL;
 
-        if(!is_null($this->ip))
-        {
-            $hostname = gethostbyaddr($this->ip);   
+        if(!is_null($this->ip)) {
+            $hostname = gethostbyaddr($this->ip);
         }
-        
         return $hostname;
     }
 
@@ -73,13 +70,11 @@ class PHPClientAddr
      * Permite obtener la IP proveniente de un servidor proxy
      * @return void
      */
-    private function get_ip_forwarded()
+    private function getIpForwarded()
     {
-        if(!!$this->is_http_x_forwarded_for())
-        {
-            $entries = $this->get_http_x_forwarded_for_entities();
-
-            $this->ip = $this->get_x_forwarded_ip($entries);          
+        if(!!$this->isHttpXForwardedFor()) {
+            $entries = $this->getHttpXForwardedForEntities();
+            $this->ip = $this->getXForwardedIp($entries);
         }
     }
 
@@ -87,16 +82,16 @@ class PHPClientAddr
      * Permite saber si la peticion proviene de un servidor proxy.
      * @return boolean
      */
-    private function is_http_x_forwarded_for()
+    private function isHttpXForwardedFor()
     {
-        return !!isset($this->server['HTTP_X_FORWARDED_FOR'])&&$this->server['HTTP_X_FORWARDED_FOR']!=''; 
+        return !!isset($this->server['HTTP_X_FORWARDED_FOR'])&&$this->server['HTTP_X_FORWARDED_FOR']!='';
     }
 
     /**
-     * Permite obtener todas las entidades enviadas por un servidor proxy. 
+     * Permite obtener todas las entidades enviadas por un servidor proxy.
      * @return array
      */
-    private function get_http_x_forwarded_for_entities()
+    private function getHttpXForwardedForEntities()
     {
         $entries = preg_split('[, ]', $this->server['HTTP_X_FORWARDED_FOR']);
         reset($entries);
@@ -108,25 +103,20 @@ class PHPClientAddr
      * @param  array $entries Arreglo de entidades enviadas por un servidor proxy
      * @return string
      */
-    private function get_x_forwarded_ip($entries)
+    private function getXForwardedIp($entries)
     {
         $ip = $this->ip;
-
-        while (list(, $entry) = each($entries))
-        {
+        while (list(, $entry) = each($entries)) {
             $entry = trim($entry);
-            if ( preg_match("/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/", $entry, $ip_list))
-            {
-                $found_ip = preg_replace( $this->private_ip, $ip, $ip_list[1]);
-     
-                if ($ip != $found_ip)
-                {
+            if ( preg_match("/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/", $entry, $ip_list)) {
+                $found_ip = preg_replace( $this->privateIp, $ip, $ip_list[1]);
+
+                if ($ip != $found_ip) {
                     $ip = $found_ip;
                     break;
                 }
             }
         }
-
         return $ip;
     }
 
@@ -134,23 +124,38 @@ class PHPClientAddr
      * Permite obtener la IP real del cliente.
      * @return string
      */
-    private function get_remode_addr()
+    private function getRemodeAddr()
     {
         $ip = NULL;
-
-        if(PHP_SAPI=='cli')
-        {
-            $ip = getHostByName(getHostName());
-        }
-        else if(!!isset($this->server['REMOTE_ADDR'])&&!empty($this->server['REMOTE_ADDR']))
-        {
+        if(PHP_SAPI=='cli') {
+            $ip = gethostbyname(gethostname());
+        } elseif($this->hasServerRemoteAddr()) {
             $ip = $this->server['REMOTE_ADDR'];
-        }
-        else if(!!isset($this->env['REMOTE_ADDR'])&&!empty($this->env['REMOTE_ADDR']))
-        {
+        } elseif($this->hasEnvRemoteAddr()) {
             $ip = $this->env['REMOTE_ADDR'];
         }
-
         return $ip;
+    }
+
+    /**
+     * Check if the remote Ip is in the glocal variable $_SERVER
+     * @return boolean
+     */
+    private function hasServerRemoteAddr()
+    {
+        return !!isset($this->server['REMOTE_ADDR'])
+            &&!empty($this->server['REMOTE_ADDR'])
+        ;
+    }
+
+    /**
+     * Check if the remote Ip is in the glocal variable $_ENV
+     * @return boolean
+     */
+    private function hasEnvRemoteAddr()
+    {
+        return !!isset($this->env['REMOTE_ADDR'])
+            &&!empty($this->env['REMOTE_ADDR'])
+        ;
     }
 }
